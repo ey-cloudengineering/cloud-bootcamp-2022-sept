@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mario
+  labels:
+    app.kubernetes.io/name: mario
+    app.kubernetes.io/instance: mario-<insert initials here>-lab3
+    app.kubernetes.io/component: app
+    app.kubernetes.io/part-of: lab3
+  annotations:
+    reference: "https://dev.azure.com/ey-tinker/Australia%20Cloud%20Fundamentals/_wiki/wikis/AU-Cloud-Fundamentals.wiki"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mario
+      app.kubernetes.io/instance: mario-<insert initials here>-lab3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mario
+        app.kubernetes.io/instance: mario-<insert initials here>-lab3
+    spec:
+      containers:
+        - name: "cntr"
+          image: "kaminskypavel/mario:latest"
+          imagePullPolicy: "Always"
+          ports:
+          - containerPort: 8080
+            name: cntr-port
+            protocol: TCP
+      restartPolicy: Always
